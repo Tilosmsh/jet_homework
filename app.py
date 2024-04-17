@@ -35,8 +35,10 @@ def get_restaurants(postcode):
             "Address": restaurant.get('address', {}).get('full', 'No address provided')
         })
 
+    print('Results before jsonify: ')
+    print(results)
     results = jsonify(results)
-    print('Results: ')
+    print('Results after jsonify: ')
     print(results)
     return results
 
