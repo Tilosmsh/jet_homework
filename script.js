@@ -12,11 +12,10 @@ function fetchRestaurants() {
             return response.json();
         })
         .then(data => {
-            console.log("Data received:", data);
-            if (!data || !Array.isArray(data)) {
+            if (!Array.isArray(data)) {
                 throw new Error("Received data is not an array");
             }
-            displayRestaurants(data);
+            displayRestaurants(data);  // Pass the data directly as it's already the array you need
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -27,17 +26,17 @@ function fetchRestaurants() {
 function displayRestaurants(restaurants) {
     const list = document.getElementById('restaurant-list');
     list.innerHTML = ''; // Clear previous entries
-    if (!restaurants) {
+    if (!restaurants || restaurants.length === 0) {
         list.innerHTML = '<p>No restaurants data available</p>';
         return;
     }
     restaurants.forEach(restaurant => {
         const div = document.createElement('div');
         div.className = 'restaurant';
-        div.innerHTML = `<h2>${restaurant.name}</h2>
-                         <p>Cuisines: ${restaurant.cuisines.map(cuisine => cuisine.name).join(', ')}</p>
-                         <p>Rating: ${restaurant.rating.starRating} Stars (${restaurant.rating.count} reviews)</p>
-                         <p>Address: ${restaurant.address.firstLine}, ${restaurant.address.city}</p>`;
+        div.innerHTML = `<h2>${restaurant.Name}</h2>
+                         <p>Cuisines: ${restaurant.Cuisines}</p>
+                         <p>Rating: ${restaurant.Rating} Stars</p>
+                         <p>Address: ${restaurant.Address}</p>`; // Make sure property names are correctly capitalized as per your log
         list.appendChild(div);
     });
 }
