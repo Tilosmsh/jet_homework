@@ -11,6 +11,7 @@ def get_restaurants(postcode):
     }
     url = f'https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/{postcode}'
     response = requests.get(url, headers=headers)
+    print('API response: ')
     print(response)
     try:
         data = response.json()
@@ -23,9 +24,12 @@ def get_restaurants(postcode):
 
     
     restaurants = data.get('restaurants', [])
-
+    print('Restaurants: ')
+    print(restaurants)
     results = []
     for restaurant in restaurants[:10]:  # Limit to first 10 entries
+        print('Restaurant: ')
+        print(restaurant)
         results.append({
             "Name": restaurant['name'],
             "Cuisines": ', '.join(restaurant['cuisines']),
