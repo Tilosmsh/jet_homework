@@ -28,15 +28,17 @@ def get_restaurants(postcode):
     print(restaurants)
     results = []
     for restaurant in restaurants[:10]:  # Limit to first 10 entries
-        print('Restaurant: ')
-        print(restaurant)
         results.append({
             "Name": restaurant['name'],
             "Cuisines": ', '.join(restaurant['cuisines']),
             "Rating": restaurant.get('rating', {}).get('ratingValue', 'N/A'),
             "Address": restaurant.get('address', {}).get('full', 'No address provided')
         })
-    return jsonify(results)
+
+    results = jsonify(results)
+    print('Results: ')
+    print(results)
+    return results
 
 if __name__ == '__main__':
     app.run(debug=True)
