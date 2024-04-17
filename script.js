@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchRestaurants() {
-    const postcode = document.getElementById('postcodeInput').value; // Default postcode if none entered
+    const postcode = document.getElementById('postcodeInput').value;
     fetch(`https://jet-hommework.ew.r.appspot.com/restaurants/${postcode}`)
         .then(response => {
             if (!response.ok) {
@@ -12,9 +12,15 @@ function fetchRestaurants() {
             return response.json();
         })
         .then(data => {
-            console.log(data); // Log to verify structure
-            displayRestaurants(data.restaurants);
-        }) // Assuming the data object has a 'restaurants' key
+            console.log(data); // Add this to check what data you are actually receiving
+            if (Array.isArray(data)) { // Assuming the API directly returns an array of restaurants
+                displayRestaurants(data);
+            } else if (data && data.restaurants) { // If data contains a property `restaurants`
+                displayRestaurants(data.restaurants);
+            } else {
+                throw new Error("No restaurants data available");
+            }
+        })
         .catch(error => {
             console.error('Error fetching data:', error);
             document.getElementById('restaurant-list').innerHTML = `<p>Error fetching data: ${error.message}</p>`;
