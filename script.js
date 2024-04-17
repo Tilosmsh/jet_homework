@@ -11,7 +11,10 @@ function fetchRestaurants() {
             }
             return response.json();
         })
-        .then(data => displayRestaurants(data.restaurants)) // Assuming the data object has a 'restaurants' key
+        .then(data => {
+            console.log(data); // Log to verify structure
+            displayRestaurants(data.restaurants);
+        }) // Assuming the data object has a 'restaurants' key
         .catch(error => {
             console.error('Error fetching data:', error);
             document.getElementById('restaurant-list').innerHTML = `<p>Error fetching data: ${error.message}</p>`;

@@ -45,10 +45,12 @@
 # if __name__ == '__main__':
 #     app.run(debug=True)
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import requests
 from requests.exceptions import JSONDecodeError, RequestException
 
 app = Flask(__name__)
+CORS(app, resources={r"/restaurants/*": {"origins": "https://tilosmsh.github.io"}})
 
 @app.route('/restaurants/<postcode>')
 def get_restaurants(postcode):
@@ -70,6 +72,8 @@ def get_restaurants(postcode):
         return jsonify({"error": "Invalid JSON in response"}), 500
 
     restaurants = data.get('restaurants', [])
+    print('Restaurants: ')
+    print(restaurants)
     results = []
     for restaurant in restaurants[:10]:  # Limit to first 10 entries
         results.append({
@@ -78,8 +82,13 @@ def get_restaurants(postcode):
             "Rating": restaurant.get('rating', {}).get('starRating', 'N/A'),
             "Address": restaurant.get('address', {}).get('full', 'No address provided')
         })
+    print('Results: ')
+    print(results)
 
-    return jsonify(results)
+    results = jsonify(results)
+    print('jsonified results: ')
+    print(results)
+    return results
 
 if __name__ == '__main__':
     app.run(debug=True)
