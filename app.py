@@ -8,6 +8,7 @@ app = Flask(__name__)
 def get_restaurants(postcode):
     url = f'https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/{postcode}'
     response = requests.get(url)
+    print(response)
     try:
         data = response.json()
     except JSONDecodeError:
