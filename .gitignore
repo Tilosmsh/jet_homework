@@ -1,0 +1,17 @@
+# Virtual environment
+jet_venv/
+
+# Compiled Python files
+*.pyc
+__pycache__/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+
+# Node modules
+node_modules/
