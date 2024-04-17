@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
+
+h1 {
+    color: #333;
+}
+
+#restaurant-list {
+    margin-top: 20px;
+}
+
+.restaurant {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
