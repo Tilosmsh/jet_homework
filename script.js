@@ -3,10 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchRestaurants() {
-    const postcode = document.getElementById('postcodeInput').value;
+    const postcode = document.getElementById('postcodeInput').value; // Default postcode if none entered
     fetch(`https://jet-hommework.ew.r.appspot.com/restaurants/${postcode}`)
-        .then(response => response.json())
-        .then(data => displayRestaurants(data))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch data: ' + response.statusText); // Handle non-OK responses
+            }
+            return response.json();
+        })
+        .then(data => displayRestaurants(data.restaurants)) // Assuming the data object has a 'restaurants' key
         .catch(error => {
             console.error('Error fetching data:', error);
             document.getElementById('restaurant-list').innerHTML = `<p>Error fetching data: ${error.message}</p>`;
@@ -19,10 +24,10 @@ function displayRestaurants(restaurants) {
     restaurants.forEach(restaurant => {
         const div = document.createElement('div');
         div.className = 'restaurant';
-        div.innerHTML = `<h2>${restaurant.Name}</h2>
-                         <p>Cuisines: ${restaurant.Cuisines}</p>
-                         <p>Rating: ${restaurant.Rating}</p>
-                         <p>Address: ${restaurant.Address}</p>`;
+        div.innerHTML = `<h2>${restaurant.name}</h2>  // Ensure property names match those in the response
+                         <p>Cuisines: ${restaurant.cuisines.map(cuisine => cuisine.name).join(', ')}</p>  // Assuming 'cuisines' is an array of objects
+                         <p>Rating: ${restaurant.rating.starRating} Stars (${restaurant.rating.count} reviews)</p> // Assuming nested 'rating' object
+                         <p>Address: ${restaurant.address.firstLine}, ${restaurant.address.city}</p>`; // Properly accessing the address object
         list.appendChild(div);
     });
 }
