@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import requests
+from requests.exceptions import JSONDecodeError
 
 app = Flask(__name__)
 
@@ -7,7 +8,16 @@ app = Flask(__name__)
 def get_restaurants(postcode):
     url = f'https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/{postcode}'
     response = requests.get(url)
-    data = response.json()
+    try:
+        data = response.json()
+    except JSONDecodeError:
+        print("Failed to decode JSON from response:")
+        print(response.text)
+        return None  # Or handle appropriately
+    print("Status Code:", response.status_code)
+    print("Response Content:", response.text)
+
+    
     restaurants = data.get('restaurants', [])
 
     results = []
