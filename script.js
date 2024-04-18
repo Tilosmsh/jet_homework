@@ -1,9 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetchRestaurants(); // Fetch initially with default postcode
+    const searchButton = document.getElementById('searchButton'); // Assuming you have this button in your HTML
+    searchButton.addEventListener('click', fetchRestaurants);
 });
 
 function fetchRestaurants() {
     const postcode = document.getElementById('postcodeInput').value;
+    // UK postcode regex pattern
+    const postcodeRegex = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i;
+    if (!postcodeRegex.test(postcode)) {
+        alert("Please enter a valid UK postcode.");
+        return;
+    }
+
     fetch(`https://jet-hommework.ew.r.appspot.com/restaurants/${postcode}`)
         .then(response => {
             if (!response.ok) {
