@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const searchButton = document.getElementById('searchButton'); // Assuming you have this button in your HTML
-    searchButton.addEventListener('click', fetchRestaurants);
+    const searchButton = document.getElementById('searchButton');
+    searchButton.addEventListener('click', fetchRestaurants); // Setup event listener correctly
 });
 
 function fetchRestaurants() {
     const postcode = document.getElementById('postcodeInput').value;
-    // UK postcode regex pattern
-    const postcodeRegex = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i;
+    const postcodeRegex = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i; // Validate UK postcodes
     if (!postcodeRegex.test(postcode)) {
         alert("Please enter a valid UK postcode.");
         return;
@@ -23,7 +22,7 @@ function fetchRestaurants() {
             if (!Array.isArray(data)) {
                 throw new Error("Received data is not an array");
             }
-            displayRestaurants(data);  // Pass the data directly as it's already the array you need
+            displayRestaurants(data);  // Assuming data is the array of restaurants
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -38,16 +37,13 @@ function displayRestaurants(restaurants) {
         list.innerHTML = '<p>No restaurants data available</p>';
         return;
     }
-    if (Array.isArray(restaurants)) {
-        for (let i = 0; i < restaurants.length; i++) {
-            const div = document.createElement('div');
-            div.className = 'restaurant';
-            div.innerHTML = generateRestaurantHTML(restaurants[i]);
-            list.appendChild(div);
-        }
-    } else {
-        list.innerHTML = '<p>No valid restaurant data available</p>';
-    }
+
+    restaurants.forEach(restaurant => {
+        const div = document.createElement('div');
+        div.className = 'restaurant';
+        div.innerHTML = generateRestaurantHTML(restaurant);
+        list.appendChild(div);
+    });
 }
 
 function generateRestaurantHTML(restaurant) {
