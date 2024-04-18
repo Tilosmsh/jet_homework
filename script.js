@@ -30,13 +30,21 @@ function displayRestaurants(restaurants) {
         list.innerHTML = '<p>No restaurants data available</p>';
         return;
     }
-    restaurants.forEach(restaurant => {
-        const div = document.createElement('div');
-        div.className = 'restaurant';
-        div.innerHTML = `<h2>${restaurant.Name}</h2>
-                         <p>Cuisines: ${restaurant.Cuisines}</p>
-                         <p>Rating: ${restaurant.Rating} Stars</p>
-                         <p>Address: ${restaurant.Address}</p>`; // Make sure property names are correctly capitalized as per your log
-        list.appendChild(div);
-    });
+    if (Array.isArray(restaurants)) {
+        for (let i = 0; i < restaurants.length; i++) {
+            const div = document.createElement('div');
+            div.className = 'restaurant';
+            div.innerHTML = generateRestaurantHTML(restaurants[i]);
+            list.appendChild(div);
+        }
+    } else {
+        list.innerHTML = '<p>No valid restaurant data available</p>';
+    }
+}
+
+function generateRestaurantHTML(restaurant) {
+    return `<h2>${restaurant.Name}</h2>
+            <p>Cuisines: ${restaurant.Cuisines}</p>
+            <p>Rating: ${restaurant.Rating} Stars</p>
+            <p>Address: ${restaurant.Address || 'No address provided'}</p>`;
 }
