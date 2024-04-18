@@ -1,54 +1,47 @@
+let map;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 8,
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.getElementById('searchButton');
-    searchButton.addEventListener('click', fetchRestaurants); // Setup event listener correctly
+    searchButton.addEventListener('click', fetchRestaurants);
 });
 
 function fetchRestaurants() {
     const postcode = document.getElementById('postcodeInput').value;
-    const postcodeRegex = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i; // Validate UK postcodes
-    if (!postcodeRegex.test(postcode)) {
-        alert("Please enter a valid UK postcode.");
-        return;
-    }
+    // Assume you have a function to convert postcode to coordinates
+    convertPostcodeToCoords(postcode, function(coords) {
+        map.setCenter(coords);
+        map.setZoom(13);  // Zoom closer for urban areas
+    });
 
-    fetch(`https://jet-hommework.ew.r.appspot.com/restaurants/${postcode}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch data: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (!Array.isArray(data)) {
-                throw new Error("Received data is not an array");
-            }
-            displayRestaurants(data);  // Assuming data is the array of restaurants
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            document.getElementById('restaurant-list').innerHTML = `<p>Error fetching data: ${error.message}</p>`;
-        });
+    // Your existing fetch logic here
+    // After fetching data:
+    .then(data => {
+        displayRestaurants(data);  
+        displayRestaurantMarkers(data);
+    })
+    // Error handling remains the same
 }
 
-function displayRestaurants(restaurants) {
-    const list = document.getElementById('restaurant-list');
-    list.innerHTML = ''; // Clear previous entries
-    if (!restaurants || restaurants.length === 0) {
-        list.innerHTML = '<p>No restaurants data available</p>';
-        return;
-    }
-
+function displayRestaurantMarkers(restaurants) {
     restaurants.forEach(restaurant => {
-        const div = document.createElement('div');
-        div.className = 'restaurant';
-        div.innerHTML = generateRestaurantHTML(restaurant);
-        list.appendChild(div);
+        const marker = new google.maps.Marker({
+            position: { lat: restaurant.location.latitude, lng: restaurant.location.longitude },
+            map: map,
+            title: restaurant.name
+        });
     });
 }
 
-function generateRestaurantHTML(restaurant) {
-    return `<h2>${restaurant.Name}</h2>
-            <p>Cuisines: ${restaurant.Cuisines}</p>
-            <p>Rating: ${restaurant.Rating} Stars</p>
-            <p>Address: ${restaurant.Address || 'No address provided'}</p>`;
+// Ensure you have a way to get coordinates from postcodes
+function convertPostcodeToCoords(postcode, callback) {
+    // You would use an API or some service here to get coordinates
+    // For demo, use a placeholder
+    callback({ lat: 51.509865, lng: -0.118092 });
 }

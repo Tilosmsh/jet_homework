@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Finder</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQUvSVu4z-pb1Ae5aIx7eCcGKJuOPhCp0&callback=initMap&libraries=&v=weekly" async></script>
 </head>
 <body>
     <h1>Restaurants in Your Area</h1>
     <div>
         <input type="text" id="postcodeInput" value="EC4M 7RF" placeholder="Enter Postcode">
-        <button id="searchButton">Search</button> <!-- Updated to use an ID for event listener binding in JavaScript -->
+        <button id="searchButton">Search</button>
     </div>
+    <div id="map" style="height: 400px;"></div> <!-- Container for the map -->
     <div id="restaurant-list"></div>
     <script src="script.js"></script>
 </body>
