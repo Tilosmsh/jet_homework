@@ -47,8 +47,12 @@ function displayRestaurants(restaurants) {
 }
 
 function generateRestaurantHTML(restaurant) {
-    return `<h2>${restaurant.Name}</h2>
-            <p>Cuisines: ${restaurant.Cuisines}</p>
-            <p>Rating: ${restaurant.Rating} Stars</p>
-            <p>Address: ${restaurant.Address || 'No address provided'}</p>`;
+    return `
+        <div class="restaurant-logo">
+            <img src="${restaurant.LogoUrl}" alt="${restaurant.Name} Logo">
+        </div>
+        <h2>${restaurant.Name}</h2>
+        <p>Cuisines: ${restaurant.Cuisines}</p>
+        <p>Rating: ${restaurant.Rating} Stars</p>
+        <p>Address: ${restaurant.Address || 'No address provided'}</p>`;
 }

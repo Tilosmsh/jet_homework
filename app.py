@@ -41,7 +41,8 @@ def get_restaurants(postcode):
             "Name": restaurant['name'],
             "Cuisines": ', '.join([cuisine['name'] for cuisine in restaurant.get('cuisines', []) if cuisine['name'] not in non_cuisines]),
             "Rating": restaurant.get('rating', {}).get('starRating', 'N/A'),
-            "Address": formatted_address
+            "Address": formatted_address,
+            "LogoUrl": restaurant.get('logoUrl', 'https://i.postimg.cc/fy0S2k2T/image.png')
         })
     print('Results: ')
     print(results)
