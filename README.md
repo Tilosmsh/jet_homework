@@ -1,4 +1,7 @@
+
 # Early Careers Software Engineering Program Coding Assignment
+
+![Website](https://i.postimg.cc/ydTnnQG8/image.png)
 
 ## Overview
 This project is a web-based application designed to help users find restaurant information within a specified UK postcode area. It uses the Just Eat API to fetch and display restaurant data such as name, cuisines, rating, and address. The webpage is online as [a GitHub Page](https://tilosmsh.github.io/jet_homework/) and the backend is deployed on Google Cloud.
@@ -7,8 +10,8 @@ This project is a web-based application designed to help users find restaurant i
 
 ## Features
 - Enter a UK postcode to fetch restaurant data.
-- Displays the name, cuisine types, rating, and address of each restaurant, as well as their logos.
-- Limit the display to the first 10 restaurants for clarity.
+- Displays the name, cuisine types, rating, and address of each restaurant.
+- Limit the display to the first 10 restaurants for clarity and ease of use.
 
 
 ## How to Use
@@ -35,6 +38,6 @@ This project is a web-based application designed to help users find restaurant i
 ## Contact
 For any further inquiries, you can reach out via my email.
 
-Thank you for visiting my project!
+Thank you for visiting our project!
 
 
