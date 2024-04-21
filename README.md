@@ -35,6 +35,6 @@ This project is a web-based application designed to help users find restaurant i
 ## Contact
 For any further inquiries, you can reach out via my email.
 
-Thank you for visiting our project!
+Thank you for visiting my project!
 
 
