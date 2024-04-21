@@ -7,8 +7,8 @@ This project is a web-based application designed to help users find restaurant i
 
 ## Features
 - Enter a UK postcode to fetch restaurant data.
-- Displays the name, cuisine types, rating, and address of each restaurant.
-- Limit the display to the first 10 restaurants for clarity and ease of use.
+- Displays the name, cuisine types, rating, and address of each restaurant, as well as their logos.
+- Limit the display to the first 10 restaurants for clarity.
 
 
 ## How to Use
